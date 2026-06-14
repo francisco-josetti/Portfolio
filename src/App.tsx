@@ -18,19 +18,6 @@ const sectionComponents: Record<string, React.ReactNode> = {
 
 function App() {
   const [dealt, setDealt] = useState(false);
-  const [isDealing, setIsDealing] = useState(false);
-
-  const dealCards = () => {
-    setDealt(false);
-    setIsDealing(true);
-    // Pequeno delay para reiniciar a animação quando já estiverem distribuídas
-    requestAnimationFrame(() => {
-      setTimeout(() => {
-        setDealt(true);
-        setIsDealing(false);
-      }, 80);
-    });
-  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -62,17 +49,6 @@ function App() {
           </div>
         ))}
       </section>
-
-      <div className="deal-controls">
-        <button
-          type="button"
-          className="deal-button"
-          onClick={dealCards}
-          disabled={isDealing}
-        >
-          {dealt ? "Tirar novamente" : "Tirar as cartas"}
-        </button>
-      </div>
 
       <footer className="portfolio-footer">
         <p>
