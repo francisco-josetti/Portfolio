@@ -1,73 +1,78 @@
-# React + TypeScript + Vite
+# Tarot do Desenvolvedor
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Portfólio interativo em forma de cartas de tarot, construído com **React**, **TypeScript** e **Vite**.
 
-Currently, two official plugins are available:
+Cada carta representa uma seção do portfólio — sobre mim, habilidades, projetos em destaque, repositórios e contato. Ao carregar a página, as cartas são "tiradas" na mesa com uma animação escalonada. Clique em qualquer carta para virá-la e revelar o conteúdo.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+![Verso das cartas em preto e dourado](./public/favicon.svg)
 
-## React Compiler
+## Tecnologias
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- [React](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vite.dev/)
 
-## Expanding the ESLint configuration
+## Funcionalidades
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Design sombrio com verso das cartas em **preto e dourado**.
+- Animação de distribuição das cartas ao carregar a página.
+- Efeito 3D de flip ao clicar nas cartas.
+- Dados do GitHub integrados (perfil, repositórios e linguagens).
+- Layout responsivo.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Como executar
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+```bash
+# Clone o repositório
+git clone https://github.com/francisco-josetti/Portfolio.git
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Entre na pasta
+cd Portfolio
+
+# Instale as dependências
+npm install
+
+# Inicie o servidor de desenvolvimento
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Acesse `http://localhost:5173` no navegador.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Scripts disponíveis
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+| Comando         | Descrição                          |
+|-----------------|------------------------------------|
+| `npm run dev`   | Inicia o servidor de desenvolvimento |
+| `npm run build` | Gera a versão de produção em `dist/` |
+| `npm run preview` | Visualiza a versão de produção localmente |
+| `npm run lint`  | Executa o ESLint                   |
+
+## Estrutura do projeto
+
 ```
+Portfolio/
+├── public/               # Assets estáticos
+├── src/
+│   ├── components/       # Componentes reutilizáveis (TarotCard, CardBack)
+│   ├── data/             # Dados do portfólio e do GitHub
+│   ├── sections/         # Conteúdo de cada carta
+│   ├── App.tsx           # Aplicação principal
+│   ├── App.css           # Estilos específicos
+│   ├── index.css         # Design system global
+│   └── main.tsx          # Ponto de entrada
+├── index.html
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+## Autor
+
+**Francisco Josetti Vieira de Sousa**
+
+- GitHub: [@francisco-josetti](https://github.com/francisco-josetti)
+- Portfólio: [francisco-josetti.github.io/Portfolio/](https://francisco-josetti.github.io/Portfolio/)
+
+---
+
+Feito com 💜 e um toque de magia.
