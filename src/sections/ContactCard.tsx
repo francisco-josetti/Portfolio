@@ -9,6 +9,34 @@ export function ContactCard() {
       </p>
       <div className="contact-links">
         <a
+          href="mailto:franciscojosetti@gmail.com"
+          className="contact-link email"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <span className="contact-icon">✉</span>
+          <span>E-mail</span>
+        </a>
+        <a
+          href="https://www.linkedin.com/in/fjosetti/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="contact-link linkedin"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <span className="contact-icon">in</span>
+          <span>LinkedIn</span>
+        </a>
+        <a
+          href="https://wa.me/5568992026093"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="contact-link whatsapp"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <span className="contact-icon">✆</span>
+          <span>WhatsApp</span>
+        </a>
+        <a
           href={profile.html_url}
           target="_blank"
           rel="noopener noreferrer"
@@ -17,26 +45,6 @@ export function ContactCard() {
         >
           <span className="contact-icon">⌘</span>
           <span>GitHub</span>
-        </a>
-        <a
-          href={profile.blog}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="contact-link portfolio"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <span className="contact-icon">✦</span>
-          <span>Portfólio</span>
-        </a>
-        <a
-          href={`https://github.com/${profile.login}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="contact-link email"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <span className="contact-icon">✉</span>
-          <span>Mensagem</span>
         </a>
       </div>
     </div>
