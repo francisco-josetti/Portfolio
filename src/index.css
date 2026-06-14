@@ -1,0 +1,80 @@
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap");
+
+:root {
+  --gold-100: #fff9e6;
+  --gold-200: #f4e4a6;
+  --gold-300: #e8c547;
+  --gold-400: #d4af37;
+  --gold-500: #c9a227;
+  --gold-600: #b8860b;
+  --gold-700: #8b6914;
+
+  --black-900: #050505;
+  --black-800: #0a0a0a;
+  --black-700: #111111;
+  --black-600: #1a1a1a;
+  --black-500: #222222;
+
+  --text: #e8e6e3;
+  --text-muted: #9ca3af;
+  --bg: var(--black-900);
+  --surface: var(--black-700);
+  --border: rgba(212, 175, 55, 0.35);
+  --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+
+  --sans: "Cinzel", system-ui, Georgia, serif;
+  --body: system-ui, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+
+  font: 16px/150% var(--body);
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(184, 134, 11, 0.06) 0%, transparent 40%),
+    var(--bg);
+}
+
+#root {
+  width: 100%;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--sans);
+  font-weight: 600;
+  color: var(--gold-300);
+  margin: 0;
+}
+
+a {
+  color: var(--gold-300);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--gold-100);
+}
+
+p {
+  margin: 0;
+}
