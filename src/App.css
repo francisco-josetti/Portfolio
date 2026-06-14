@@ -39,6 +39,54 @@
   gap: 32px;
   width: 100%;
   perspective: 1200px;
+  min-height: 420px;
+}
+
+.card-wrapper {
+  opacity: 0;
+  transform: translateY(80px) rotateZ(calc(var(--card-index) * 4deg - 8deg)) scale(0.92);
+  transform-origin: center bottom;
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--card-index) * 120ms);
+}
+
+.cards-table.dealt .card-wrapper {
+  opacity: 1;
+  transform: translateY(0) rotateZ(0deg) scale(1);
+}
+
+/* Deal button */
+.deal-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: -8px;
+}
+
+.deal-button {
+  font-family: var(--sans);
+  font-size: 14px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gold-100);
+  background: linear-gradient(135deg, var(--gold-700) 0%, var(--gold-500) 100%);
+  border: 1px solid var(--gold-400);
+  border-radius: 999px;
+  padding: 12px 28px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.deal-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(212, 175, 55, 0.3);
+}
+
+.deal-button:disabled {
+  opacity: 0.6;
+  cursor: wait;
 }
 
 /* Tarot Card */
@@ -52,6 +100,15 @@
 
 .tarot-card:focus-visible .card-inner {
   box-shadow: 0 0 0 3px var(--gold-400);
+}
+
+.tarot-card:hover .card-inner {
+  transform: translateY(-8px);
+  box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.8);
+}
+
+.tarot-card.flipped:hover .card-inner {
+  transform: rotateY(180deg) translateY(-8px);
 }
 
 .card-inner {

@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { TarotCard } from "./components/TarotCard";
 import { tarotCards } from "./data/portfolio";
 import { AboutCard } from "./sections/AboutCard";
@@ -16,6 +17,28 @@ const sectionComponents: Record<string, React.ReactNode> = {
 };
 
 function App() {
+  const [dealt, setDealt] = useState(false);
+  const [isDealing, setIsDealing] = useState(false);
+
+  const dealCards = () => {
+    setDealt(false);
+    setIsDealing(true);
+    // Pequeno delay para reiniciar a animação quando já estiverem distribuídas
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        setDealt(true);
+        setIsDealing(false);
+      }, 80);
+    });
+  };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDealt(true);
+    }, 400);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <main className="portfolio">
       <header className="portfolio-header">
@@ -26,13 +49,30 @@ function App() {
         </p>
       </header>
 
-      <section className="cards-table">
-        {tarotCards.map((card) => (
-          <TarotCard key={card.id} {...card}>
-            {sectionComponents[card.id]}
-          </TarotCard>
+      <section className={`cards-table ${dealt ? "dealt" : ""}`}>
+        {tarotCards.map((card, index) => (
+          <div
+            key={card.id}
+            className="card-wrapper"
+            style={{ "--card-index": index } as React.CSSProperties}
+          >
+            <TarotCard {...card}>
+              {sectionComponents[card.id]}
+            </TarotCard>
+          </div>
         ))}
       </section>
+
+      <div className="deal-controls">
+        <button
+          type="button"
+          className="deal-button"
+          onClick={dealCards}
+          disabled={isDealing}
+        >
+          {dealt ? "Tirar novamente" : "Tirar as cartas"}
+        </button>
+      </div>
 
       <footer className="portfolio-footer">
         <p>
