@@ -66,6 +66,25 @@ Portfolio/
 └── vite.config.ts
 ```
 
+## Deploy no GitHub Pages
+
+O deploy é feito automaticamente via **GitHub Actions** sempre que houver um push na branch `main`.
+
+### Configuração necessária no GitHub
+
+1. Acesse o repositório: `https://github.com/francisco-josetti/Portfolio`
+2. Vá em **Settings → Pages**.
+3. Em **Source**, selecione **GitHub Actions**.
+4. Pronto! A próxima alteração na `main` vai disparar o workflow e publicar o site.
+
+### URL do site
+
+Após o deploy, o portfólio estará disponível em:
+
+```
+https://francisco-josetti.github.io/Portfolio/
+```
+
 ## Autor
 
 **Francisco Josetti Vieira de Sousa**
