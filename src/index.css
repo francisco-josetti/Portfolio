@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap");
 
+html {
+  scroll-behavior: smooth;
+}
+
 :root {
   --gold-100: #fff9e6;
   --gold-200: #f4e4a6;

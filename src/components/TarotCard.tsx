@@ -10,29 +10,51 @@ export interface TarotCardProps {
   color?: string;
   children: ReactNode;
   defaultFlipped?: boolean;
+  flipped?: boolean;
+  onSelect?: (id: string) => void;
+  selected?: boolean;
+  static?: boolean;
 }
 
 export function TarotCard({
+  id,
   arcana,
   number,
   title,
   symbol,
   children,
   defaultFlipped = false,
+  flipped: controlledFlipped,
+  onSelect,
+  selected = false,
+  static: isStatic = false,
 }: TarotCardProps) {
-  const [flipped, setFlipped] = useState(defaultFlipped);
+  const [internalFlipped, setInternalFlipped] = useState(defaultFlipped);
+  const isFlipped =
+    controlledFlipped !== undefined
+      ? controlledFlipped
+      : selected || internalFlipped;
+
+  const handleClick = () => {
+    if (isStatic) return;
+    if (onSelect) {
+      onSelect(id);
+    } else if (controlledFlipped === undefined) {
+      setInternalFlipped((f) => !f);
+    }
+  };
 
   return (
     <div
-      className={`tarot-card ${flipped ? "flipped" : ""}`}
-      onClick={() => setFlipped((f) => !f)}
+      className={`tarot-card ${isFlipped ? "flipped" : ""} ${selected ? "selected" : ""} ${isStatic ? "static" : ""}`}
+      onClick={handleClick}
       role="button"
-      tabIndex={0}
-      aria-label={flipped ? `Virar carta ${title}` : `Revelar carta ${title}`}
+      tabIndex={isStatic ? -1 : 0}
+      aria-label={isFlipped ? `Virar carta ${title}` : `Revelar carta ${title}`}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
-          setFlipped((f) => !f);
+          handleClick();
         }
       }}
     >
