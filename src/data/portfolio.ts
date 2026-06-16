@@ -25,7 +25,7 @@ export const profile: Profile = {
   name: "Francisco Josetti Vieira de Sousa",
   login: "francisco-josetti",
   avatar: "https://avatars.githubusercontent.com/u/235409912?v=4",
-  bio: "Software Engineering Student | HTML | CSS | Python",
+  bio: "Software Engineering Student | HTML · CSS · JavaScript · TypeScript · React · Python · Go",
   html_url: "https://github.com/francisco-josetti",
   public_repos: 19,
   followers: 9,

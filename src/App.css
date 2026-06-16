@@ -1,4 +1,19 @@
 /* ---------------------------------- */
+/* Scroll Progress                    */
+/* ---------------------------------- */
+
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: calc(var(--progress, 0) * 100%);
+  background: linear-gradient(90deg, var(--gold-500), var(--gold-300));
+  z-index: 1001;
+  transition: width 0.1s linear;
+}
+
+/* ---------------------------------- */
 /* Site Navigation                    */
 /* ---------------------------------- */
 
@@ -207,6 +222,40 @@
 }
 
 /* ---------------------------------- */
+/* Hero                               */
+/* ---------------------------------- */
+
+.hero {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 24px 40px;
+  gap: 16px;
+}
+
+.hero-scroll-hint {
+  margin-top: 32px;
+  animation: hero-bounce 2s ease-in-out infinite;
+}
+
+.hero-scroll-arrow {
+  font-size: 24px;
+  color: var(--gold-400);
+  opacity: 0.6;
+}
+
+@keyframes hero-bounce {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(8px); opacity: 1; }
+}
+
+/* ---------------------------------- */
 /* Portfolio Container                */
 /* ---------------------------------- */
 
@@ -275,9 +324,9 @@
   opacity: 0;
   pointer-events: auto;
   transition:
-    left 0.7s cubic-bezier(0.25, 1, 0.5, 1),
-    transform 0.7s cubic-bezier(0.25, 1, 0.5, 1),
-    opacity 0.5s ease;
+    left 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+    transform 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+    opacity 0.3s ease;
 }
 
 /* Phase: appear — card fades + scales to center */
@@ -299,6 +348,23 @@
   left: 160px;
   transform: translate(0, -50%) scale(1);
   transition-delay: 0s;
+}
+
+@keyframes card-glow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(212, 175, 55, 0);
+  }
+  30% {
+    box-shadow: 0 0 40px 8px var(--accent, #d4af37), 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+  }
+  100% {
+    box-shadow: 0 0 18px 2px var(--accent, #d4af37), 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+  }
+}
+
+.phase-reveal .section-card-wrapper .card-inner {
+  animation: card-glow 1.2s ease-out 0.3s forwards;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
 }
 
 /* ---------------------------------- */
@@ -328,13 +394,14 @@
   gap: 14px;
   margin-bottom: 28px;
   padding-bottom: 16px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 2px solid var(--accent);
+  border-image: linear-gradient(to right, var(--accent), transparent) 1;
 }
 
 .section-heading-arcana {
   font-family: var(--sans);
   font-size: 28px;
-  color: var(--gold-300);
+  color: var(--accent);
   letter-spacing: 3px;
   text-transform: uppercase;
   line-height: 1.2;
@@ -399,7 +466,7 @@
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  transition: transform 0.85s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
   border-radius: 18px;
   box-shadow: var(--shadow);
 }
@@ -573,6 +640,194 @@
 }
 
 /* ---------------------------------- */
+/* Card Front Contents                */
+/* ---------------------------------- */
+
+.cf {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 12px;
+  padding: 4px 0;
+}
+
+/* Mago — Numeral + Name + Bio + Stats */
+.cf-mago {
+  gap: 6px;
+}
+
+.cf-mago-numeral {
+  font-family: var(--sans);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--gold-300);
+  line-height: 1;
+}
+
+.cf-mago-name {
+  font-family: var(--sans);
+  font-size: 14px;
+  color: var(--gold-200);
+  letter-spacing: 1px;
+}
+
+.cf-mago-bio {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 135%;
+  max-width: 200px;
+  font-style: italic;
+}
+
+.cf-mago-stats {
+  display: flex;
+  gap: 14px;
+}
+
+.cf-mago-stat {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cf-mago-sym {
+  color: var(--gold-400);
+  font-size: 10px;
+}
+
+.cf-mago-val {
+  font-family: var(--sans);
+  font-size: 16px;
+  color: var(--gold-300);
+  font-weight: 700;
+}
+
+/* Estrela — Constellation SVG */
+.cf-estrela {
+  padding: 0;
+}
+
+.cf-estrela-svg {
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+}
+
+/* Sol — Projects with ☉ */
+.cf-sol {
+  gap: 8px;
+  align-items: stretch;
+  justify-content: flex-start;
+  padding-top: 0;
+}
+
+.cf-sol-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: rgba(212, 175, 55, 0.06);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+.cf-sol-sym {
+  color: var(--gold-400);
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.cf-sol-name {
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--gold-200);
+  letter-spacing: 0.5px;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cf-sol-lang {
+  font-size: 9px;
+  color: var(--text-muted);
+  background: var(--black-500);
+  padding: 1px 6px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+/* Mundo — Total repos + list */
+.cf-mundo {
+  gap: 4px;
+}
+
+.cf-mundo-total {
+  font-family: var(--sans);
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--gold-300);
+  line-height: 1;
+}
+
+.cf-mundo-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+.cf-mundo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+.cf-mundo-repo {
+  font-size: 11px;
+  color: var(--gold-200);
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(212, 175, 55, 0.06);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Lua — Contact as moon phases */
+.cf-lua {
+  gap: 6px;
+  align-items: stretch;
+}
+
+.cf-lua-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 8px;
+  border-radius: 6px;
+  background: rgba(212, 175, 55, 0.06);
+  border: 1px solid rgba(212, 175, 55, 0.12);
+}
+
+.cf-lua-phase {
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.cf-lua-label {
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--gold-200);
+  letter-spacing: 1px;
+}
+
+/* ---------------------------------- */
 /* About Section                      */
 /* ---------------------------------- */
 
@@ -641,7 +896,7 @@
 }
 
 .card-link:hover {
-  border-bottom-color: var(--gold-400);
+  border-bottom-color: var(--accent);
 }
 
 /* ---------------------------------- */
@@ -670,11 +925,11 @@
 
 .language-chip {
   background: rgba(212, 175, 55, 0.12);
-  border: 1px solid var(--border);
+  border: 1px solid var(--accent);
   border-radius: 999px;
   padding: 5px 14px;
   font-size: 13px;
-  color: var(--gold-200);
+  color: var(--accent);
 }
 
 .language-chip strong {
@@ -709,7 +964,7 @@
 
 .skill-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--gold-600) 0%, var(--gold-300) 100%);
+  background: linear-gradient(90deg, var(--accent) 0%, var(--gold-100) 100%);
   border-radius: 999px;
   transition: width 0.8s ease;
 }
@@ -736,7 +991,7 @@
 
 .project-item:hover {
   transform: translateY(-2px);
-  border-color: var(--gold-400);
+  border-color: var(--accent);
 }
 
 .project-header {
@@ -854,12 +1109,12 @@
 
 .contact-link:hover {
   transform: translateX(4px);
-  border-color: var(--gold-400);
+  border-color: var(--accent);
 }
 
 .contact-icon {
   font-size: 20px;
-  color: var(--gold-300);
+  color: var(--accent);
   width: 28px;
   text-align: center;
 }
@@ -871,9 +1126,60 @@
 .portfolio-footer {
   text-align: center;
   color: var(--text-muted);
+  padding: 48px 24px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.footer-sym {
+  font-size: 28px;
+  color: var(--gold-400);
+  opacity: 0.5;
+}
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-links a {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  color: var(--gold-300);
+  font-size: 16px;
+  font-family: var(--sans);
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.footer-links a:hover {
+  border-color: var(--gold-400);
+  background: rgba(212, 175, 55, 0.08);
+  color: var(--gold-100);
+}
+
+.footer-sep {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold-400), transparent);
+}
+
+.footer-copy {
+  font-family: var(--sans);
   font-size: 13px;
-  padding-top: 40px;
-  padding-bottom: 20px;
+  color: var(--gold-200);
+  letter-spacing: 0.5px;
+}
+
+.portfolio-footer-sub {
+  font-size: 11px;
+  opacity: 0.5;
 }
 
 /* ---------------------------------- */
@@ -923,6 +1229,11 @@
 }
 
 @media (max-width: 768px) {
+  .hero {
+    min-height: 50vh;
+    padding: 100px 20px 24px;
+  }
+
   .portfolio-section {
     flex-direction: column;
     align-items: stretch;
@@ -988,7 +1299,7 @@
   }
 
   .nav-brand {
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .portfolio {
@@ -1012,7 +1323,7 @@
   }
 
   .nav-brand {
-    font-size: 12px;
+    font-size: 15px;
   }
 
   .portfolio-title {
@@ -1021,5 +1332,74 @@
 
   .about-stats {
     gap: 16px;
+  }
+}
+
+/* ---------------------------------- */
+/* Reduced Motion                    */
+/* ---------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .section-card-wrapper,
+  .section-content,
+  .card-inner,
+  .card-link,
+  .project-item,
+  .contact-link,
+  .nav-links a,
+  .nav-menu-toggle,
+  .nav-menu-toggle span,
+  .mobile-menu,
+  .mobile-menu-overlay,
+  .language-chip,
+  .skill-fill {
+    transition-duration: 0s !important;
+    animation-duration: 0s !important;
+  }
+
+  .phase-hidden .section-card-wrapper {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .phase-appear .section-card-wrapper {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .phase-reveal .section-card-wrapper {
+    opacity: 1;
+    left: 160px;
+    transform: translate(0, -50%) scale(1);
+  }
+
+  .phase-hidden .section-content,
+  .phase-appear .section-content,
+  .phase-flip .section-content {
+    opacity: 0;
+  }
+
+  .phase-reveal .section-content {
+    opacity: 1;
+    transform: none;
+  }
+
+  .tarot-card.flipped .card-inner,
+  .tarot-card.flipped.static .card-inner {
+    transform: rotateY(180deg);
+  }
+
+  @media (max-width: 768px) {
+    .section-card-stage {
+      min-height: auto;
+    }
+
+    .phase-appear .section-card-wrapper,
+    .phase-flip .section-card-wrapper,
+    .phase-reveal .section-card-wrapper {
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) scale(0.85);
+    }
   }
 }

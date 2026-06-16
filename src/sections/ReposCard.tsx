@@ -1,13 +1,16 @@
-import { repos } from "../data/portfolio";
+import { repos, featuredProjects } from "../data/portfolio";
+
+const featuredNames = new Set(featuredProjects.map((p) => p.name));
+const otherRepos = repos.filter((r) => !featuredNames.has(r.name));
 
 export function ReposCard() {
   return (
     <div className="repos-section">
       <p className="repos-intro">
-        Explore todos os {repos.length} repositórios públicos do meu GitHub.
+        Explore os {repos.length} repositórios públicos do meu GitHub.
       </p>
       <div className="repos-list">
-        {repos.slice(0, 8).map((repo) => (
+        {otherRepos.slice(0, 8).map((repo) => (
           <a
             key={repo.name}
             href={repo.html_url}

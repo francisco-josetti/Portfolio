@@ -1,5 +1,12 @@
 import { useState, useEffect, useRef, type ReactNode } from "react";
 import { TarotCard } from "./components/TarotCard";
+import {
+  MagoFront,
+  EstrelaFront,
+  SolFront,
+  MundoFront,
+  LuaFront,
+} from "./components/CardFrontContents";
 import { tarotCards } from "./data/portfolio";
 import { AboutCard } from "./sections/AboutCard";
 import { SkillsCard } from "./sections/SkillsCard";
@@ -14,6 +21,14 @@ const sectionComponents: Record<string, ReactNode> = {
   projects: <ProjectsCard />,
   repos: <ReposCard />,
   contact: <ContactCard />,
+};
+
+const frontComponents: Record<string, ReactNode> = {
+  about: <MagoFront />,
+  skills: <EstrelaFront />,
+  projects: <SolFront />,
+  repos: <MundoFront />,
+  contact: <LuaFront />,
 };
 
 type Phase = "hidden" | "appear" | "flip" | "reveal";
@@ -38,7 +53,7 @@ function Section({
     const visibleBottom = Math.min(rect.bottom, viewportHeight - 80);
     const visibleHeight = Math.max(0, visibleBottom - visibleTop);
     const visibleRatio = rect.height > 0 ? visibleHeight / rect.height : 0;
-    const alreadyInView = visibleRatio >= 0.5;
+    const alreadyInView = visibleRatio >= 0.3;
 
     if (alreadyInView && !triggered.current) {
       triggered.current = true;
@@ -53,7 +68,7 @@ function Section({
           setPhase("appear");
         }
       },
-      { threshold: 0.5, rootMargin: "-80px 0px -80px 0px" },
+      { threshold: 0.15, rootMargin: "-40px 0px -40px 0px" },
     );
 
     observer.observe(el);
@@ -62,11 +77,11 @@ function Section({
 
   useEffect(() => {
     if (phase === "appear") {
-      const timer = setTimeout(() => setPhase("flip"), 500);
+      const timer = setTimeout(() => setPhase("flip"), 300);
       return () => clearTimeout(timer);
     }
     if (phase === "flip") {
-      const timer = setTimeout(() => setPhase("reveal"), 900);
+      const timer = setTimeout(() => setPhase("reveal"), 500);
       return () => clearTimeout(timer);
     }
   }, [phase]);
@@ -76,6 +91,7 @@ function Section({
       id={card.id}
       ref={ref}
       className={`portfolio-section phase-${phase}`}
+      style={{ "--accent": card.color } as React.CSSProperties}
     >
       <div className="section-card-stage">
         <div className="section-card-wrapper">
@@ -84,7 +100,7 @@ function Section({
             static
             flipped={phase === "flip" || phase === "reveal"}
           >
-            <></>
+            {frontComponents[card.id]}
           </TarotCard>
         </div>
       </div>
@@ -103,6 +119,18 @@ function Section({
 function App() {
   const [activeNav, setActiveNav] = useState<string>("");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollProgress(docHeight > 0 ? scrollTop / docHeight : 0);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     const sectionIds = tarotCards.map((c) => c.id);
@@ -139,6 +167,8 @@ function App() {
 
   return (
     <>
+      <div className="scroll-progress" style={{ "--progress": scrollProgress } as React.CSSProperties} />
+
       <nav className="site-nav">
         <div className="nav-inner">
           <span className="nav-brand">Tarot.dev</span>
@@ -197,6 +227,14 @@ function App() {
         </div>
       </div>
 
+      <header className="hero">
+        <h1 className="portfolio-title">Tarot.dev</h1>
+        <p className="portfolio-subtitle">Cada carta revela uma parte da minha jornada</p>
+        <div className="hero-scroll-hint" aria-hidden="true">
+          <span className="hero-scroll-arrow">&#x2193;</span>
+        </div>
+      </header>
+
       <main className="portfolio">
         {tarotCards.map((card) => (
           <Section key={card.id} card={card}>
@@ -205,10 +243,16 @@ function App() {
         ))}
 
         <footer className="portfolio-footer">
-          <p>
-            Feito com React + TypeScript + Vite · Verso das cartas em preto e
-            dourado
-          </p>
+          <span className="footer-sym">&#x263D;</span>
+          <div className="footer-links">
+            <a href="mailto:franciscojosetti@gmail.com">&#x2709;</a>
+            <a href="https://github.com/francisco-josetti" target="_blank" rel="noopener noreferrer">&#x2318;</a>
+            <a href="https://www.linkedin.com/in/fjosetti/" target="_blank" rel="noopener noreferrer">in</a>
+            <a href="https://wa.me/5568992026093" target="_blank" rel="noopener noreferrer">&#x2706;</a>
+          </div>
+          <div className="footer-sep" />
+          <p className="footer-copy">&copy; {new Date().getFullYear()} Francisco Josetti</p>
+          <p className="portfolio-footer-sub">Feito com React + TypeScript + Vite · Verso das cartas em preto e dourado</p>
         </footer>
       </main>
     </>

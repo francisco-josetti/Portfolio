@@ -25,6 +25,7 @@ html {
   --surface: var(--black-700);
   --border: rgba(212, 175, 55, 0.35);
   --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+  --accent: var(--gold-300);
 
   --sans: "Cinzel", system-ui, Georgia, serif;
   --body: system-ui, "Segoe UI", Roboto, sans-serif;
